@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/img/free-icon-polar-bear-263501.png">
+    <link rel="stylesheet" href="styles.css" />
+    <title>Soundbeard</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <div></div>
+      <form
+        id="uploadForm"
+        action="/upload"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <h1 class="logo">Upload tracks</h1>
+        <input type="file" name="fileData" accept=".mp3, .wav, .ogg" required />
+        <input class="but_header send" type="submit" name="send" />
+      </form>
+      <button class="but_header">Sort by alphabet</button>
+      <a href="/download"
+        ><button class="but_header download">Download statistic</button></a
+      >
+      <form id="registrationForm">
+        <input type="text" id="username" name="username" placeholder="Username" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <button type="submit">Зарегистрироваться</button>
+      </form>      
+    </div>
+    <div class="main">
+      <section>
+        <div class="submain">
+          <h2>My audios</h2>
+          <ul class="song-list" id="songList"></ul>
+        </div>
+      </section>
+    </div>
+    <div class="footer">
+      <div class="footer-list">
+        <div class="block">
+          <ul aria-label="Компания" class="sublist_1">
+            <h2 class="li-items">Компания</h2>
+            <li class="li-items"><a href="#">О нас</a></li>
+            <li class="li-items"><a href="#">Вакансии</a></li>
+            <li class="li-items"><a href="#">For the Record</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <ul aria-label="Сообщества" class="sublist_2">
+            <h2 class="li-items">Сообщества</h2>
+            <li class="li-items"><a href="#">Для исполнителей</a></li>
+            <li class="li-items"><a href="#">Для разработчиков</a></li>
+            <li class="li-items"><a href="#">Реклама</a></li>
+            <li class="li-items"><a href="#">Для инвесторов</a></li>
+            <li class="li-items"><a href="#">Для вендоров</a></li>
+          </ul>
+        </div>
+        <div class="block">
+          <ul aria-label="Полезные ссылки" class="sublist_3">
+            <h2 class="li-items">Полезные ссылки</h2>
+            <li class="li-items"><a href="#">Справка</a></li>
+            <li class="li-items"><a href="#">Веб-плеер</a></li>
+            <li class="li-items">
+              <a href="#">Бесплатное мобильное приложение</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr class="underline" />
+      <p class="footer-logo" style="color: #fff">&copy;&nbsp;2024 Soundbeard</p>
+    </div>
+    <script src="js.js"></script>
+  </body>
+</html>
