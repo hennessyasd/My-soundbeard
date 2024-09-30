@@ -67,6 +67,10 @@ a {
     text-decoration: none;
     color: var(--black);
 }
+#toggleButton:hover {
+    transition: background-color 0.3s ease;
+    background-color: var(--semi-color);
+}
 /*header*/
 
 /*main*/

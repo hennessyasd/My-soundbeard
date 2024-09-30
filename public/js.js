@@ -37,29 +37,35 @@ async function deleteSong(songName) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadSongs);
+let isRegisterMode = true;
 
-async function registration(event) {
+document.getElementById("authForm").addEventListener("submit", async (event) => {
   event.preventDefault();
-
+  
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-
-  const response = await fetch('/register', {
+  const url = isRegisterMode ? "/register" : "/login";
+  
+  const response = await fetch(url, {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ username, password })
   });
-
-  if (response.ok) {
-    alert("Регистрация успешна!");
-    document.getElementById("registrationForm").reset();
-  } else {
-    const errorMessage = await response.text();
-    alert(`Ошибка: ${errorMessage}`);
+  
+  const message = await response.text();
+  alert(message);
+  
+  if (response.ok && !isRegisterMode) {
+    alert("Вход успешен! (сюда можно вставить редирект на другую страницу)")
   }
-}
+});
 
-document.getElementById("registrationForm").addEventListener("submit", registration);
+document.getElementById("toggleButton").addEventListener("click", () => {
+  isRegisterMode = !isRegisterMode;
+  document.getElementById("authButton").textContent = isRegisterMode ? "Register" : "Login";
+  document.getElementById("toggleButton").textContent = isRegisterMode ? "Switch to Login" : "Switch to Register";
+});
+
+document.addEventListener("DOMContentLoaded", loadSongs);

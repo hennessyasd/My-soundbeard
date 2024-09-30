@@ -20,15 +20,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 const uploadedFiles = [];
 
-// File for storing registered users
 const usersFile = path.join(__dirname, "data", "users.json");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/songs", express.static(path.join(__dirname, "songs")));
 
-// Use Express's built-in body-parser
-app.use(express.json()); // for parsing application/json
-app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (_, res) => res.redirect("/"));
 
@@ -96,9 +94,6 @@ const ensureUsersFileExists = () => {
   }
 };
 
-
-const userFile = path.join(__dirname, "data", "users.json");
-
 app.post("/register", (req, res) => {
   ensureUsersFileExists();
 
@@ -137,6 +132,37 @@ app.post("/register", (req, res) => {
       console.log("Пользователь успешно зарегистрирован и добавлен в файл:", username);
       return res.status(201).send("User registered successfully");
     });
+  });
+});
+
+app.post("/login", (req, res) => {
+  ensureUsersFileExists();
+
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).send("Username and password are required");
+  }
+
+  fs.readFile(usersFile, "utf8", (err, data) => {
+    if (err) {
+      console.error("Ошибка при чтении файла users.json:", err);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    let users = [];
+    if (data) {
+      users = JSON.parse(data);
+    }
+
+    const existingUser = users.find(user => user.username === username && user.password === password);
+    if (!existingUser) {
+      console.log("Неправильное имя пользователя или пароль:", username);
+      return res.status(400).send("Invalid username or password");
+    }
+
+    console.log("Успешный вход пользователя:", username);
+    return res.status(200).send("Login successful");
   });
 });
 
